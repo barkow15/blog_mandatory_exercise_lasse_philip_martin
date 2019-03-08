@@ -1,5 +1,5 @@
-package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.controllers;
-import com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.repository.DatabaseConnectionMySQL;
+package Tech.KEA.Assignment1.controllers;
+import Tech.KEA.Assignment1.repository.DatabaseConnectionMySQL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 

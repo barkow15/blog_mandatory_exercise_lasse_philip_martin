@@ -1,4 +1,4 @@
-package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.repository;
+package Tech.KEA.Assignment1.repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

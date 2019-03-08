@@ -1,5 +1,7 @@
-package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.repository;
+package Tech.KEA.Assignment1.repository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,7 +14,13 @@ public class BlogRepoMySQL implements BlogRepoInterface {
     }
 
     public int createPost(String title, String content, boolean hidden)  throws SQLException {
-        return 0;
+        String SQL= "INSERT INTO posts (title,content,hidden) VALUES (?,?,?)";
+        PreparedStatement preparedStatment = dbCon.getConnection().prepareStatement(SQL);
+        preparedStatment.setString(1,title);
+        preparedStatment.setString(2,content);
+        preparedStatment.setBoolean(3,hidden);
+        return preparedStatment.executeUpdate();
+
     }
     public void   deletePost(int id)        throws SQLException{
 

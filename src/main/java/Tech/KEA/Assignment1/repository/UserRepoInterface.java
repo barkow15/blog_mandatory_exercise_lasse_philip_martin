@@ -1,6 +1,5 @@
-package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.repository;
+package Tech.KEA.Assignment1.repository;
 
-import com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

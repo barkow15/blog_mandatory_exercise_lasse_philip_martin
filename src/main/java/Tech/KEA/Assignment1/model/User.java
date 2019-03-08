@@ -1,4 +1,4 @@
-package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.model;
+package Tech.KEA.Assignment1.model;
 
 public class User{
     // User egenskaber

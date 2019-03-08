@@ -1,4 +1,4 @@
-package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin;
+package Tech.KEA.Assignment1;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

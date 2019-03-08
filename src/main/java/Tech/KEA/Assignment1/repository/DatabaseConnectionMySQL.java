@@ -1,4 +1,4 @@
-package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.repository;
+package Tech.KEA.Assignment1.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

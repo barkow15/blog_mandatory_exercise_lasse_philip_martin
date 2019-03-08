@@ -1,6 +1,6 @@
-package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.controllers;
+package Tech.KEA.Assignment1.controllers;
 
-import com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.model.User;
+import Tech.KEA.Assignment1.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
