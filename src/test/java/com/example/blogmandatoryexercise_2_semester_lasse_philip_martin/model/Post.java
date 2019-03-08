@@ -1,3 +1,5 @@
+package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.model;
+
 public class Post{
     // Post egenskaber
     private int     id;
@@ -17,36 +19,13 @@ public class Post{
     }
 
     // Getters & setters <-- start -->
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public boolean isHidden() {
-        return hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
+    public boolean isHidden() { return hidden; }
+    public void setHidden(boolean hidden) { this.hidden = hidden; }
     // Getters & setters <-- /slut -->
 }

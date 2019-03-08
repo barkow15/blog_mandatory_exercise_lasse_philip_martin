@@ -1,3 +1,5 @@
+package com.example.blogmandatoryexercise_2_semester_lasse_philip_martin.model;
+
 public class User{
     // User egenskaber
     private String username;
@@ -14,18 +16,13 @@ public class User{
     }
 
     // Getters & setters <-- start -->
-    public String getUsername() {
-        return username;
-    }
-
+    public String getUsername() { return username; }
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
