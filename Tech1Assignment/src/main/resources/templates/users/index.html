@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a href="/users/create">Create</a>,
+    <a href="/users/edit">Edit</a>,
+    <a href="/users/delete/1">Delete</a>,
+    <a href="/users/info">Info</a>,
+    <a href="/users/index">Index (here)</a>,
+</div>
+<div>
+    <table>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <td th:text="${user.getUsername()}"></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>
