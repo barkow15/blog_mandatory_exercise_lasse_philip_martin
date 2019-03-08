@@ -107,4 +107,8 @@ public class DatabaseConnectionMySQL {
             System.exit(0);
         }
     }
+
+    public Connection getConnection(){
+        return conn;
+    }
 }
