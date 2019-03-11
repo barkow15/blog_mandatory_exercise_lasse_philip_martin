@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Delete user</title>
 </head>
 <body>
 <h1>Delete User</h1>
+<p>You are about to delete the user</p><p th:text="${user.getUsername()}"></p>
+<p>Please confirm.</p>
+<form method="post" action="/users/delete">
+    <input type="hidden" name="userID" th:value="${user.getUserID()}">
+    <input type="submit" value="Slet">
+</form>
 </body>
 </html>

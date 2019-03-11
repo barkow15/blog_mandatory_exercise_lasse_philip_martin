@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Edit user</title>
 </head>
 <body>
 <h1>Edit User</h1>
+<p>To change a username or password, please provide the old password</p>
+
+<form method="post" action="/users/edit">
+    <input type="hidden" name="userID" th:value="${user.getUserID()}">
+    <p>Username: <input type="text" name="newUsername" th:value="${user.getUsername()}"></p>
+    <p>Old password: <input type="password" name="oldPassword"></p>
+    <p>New password: <input type="password" name="newPassword"></p>
+    <input type="submit" value="Edit">
+</form>
+
 </body>
 </html>

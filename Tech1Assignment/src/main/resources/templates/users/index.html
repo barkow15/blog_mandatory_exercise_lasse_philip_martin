@@ -14,9 +14,19 @@
 </div>
 <div>
     <table>
+        <tr>
+            <td colspan="2" style="background-color: #F9F9F9"><b>Users:</b></td>
+        </tr>
+        <tr>
+            <td style="background-color: #F1F1F1"><b>ID</b></td>
+            <td style="background-color: #F1F1F1"><b>Username</b></td>
+        </tr>
         <th:block th:each="user : ${users}">
             <tr>
-                <td th:text="${user.getUsername()}"></td>
+                <td><a th:href="@{/users/info/} + ${user.getUserID()}" th:text="${user.getUserID()}"></a></td>
+                <td><a th:href="@{/users/info/} + ${user.getUserID()}" th:text="${user.getUsername()}"></a></td>
+                <td><a th:href="@{/users/edit/} + ${user.getUserID()}">Edit</a></td>
+                <td><a th:href="@{/users/delete/} + ${user.getUserID()}">Delete</a></td>
             </tr>
         </th:block>
     </table>

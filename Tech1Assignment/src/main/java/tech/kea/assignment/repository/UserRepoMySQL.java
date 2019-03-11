@@ -31,11 +31,11 @@ public class UserRepoMySQL implements UserRepoInterface
 
     public void editUser(int userID, String username, String password)    throws SQLException
     {
-        String sql = "UPATE users SET `name` = ?, `password` = ? WHERE id = ?";
+        String sql = "UPDATE users SET `name` = ?, `password` = md5(?) WHERE `id` = ?";
         PreparedStatement pstmt = conn.getConnection().prepareStatement(sql);
-        pstmt.setInt(1, userID);
-        pstmt.setString(2, username);
-        pstmt.setString(3, password);
+        pstmt.setString(1, username);
+        pstmt.setString(2, password);
+        pstmt.setInt(3, userID);
         pstmt.executeUpdate();
     }
 

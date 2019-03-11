@@ -38,8 +38,13 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
+    public boolean validateLoginCredentials(String username, String password) throws SQLException {
+        return UserRepo.validateLoginCredentials(username, password);
+    }
+
+    @Override
     public boolean validateLoginCredentials(User user) throws SQLException {
-        return UserRepo.validateLoginCredentials(user.getUsername(), user.getPassword());
+        return validateLoginCredentials(user.getUsername(), user.getPassword());
     }
 
     @Override
@@ -47,17 +52,17 @@ public class UserService implements UserServiceInterface {
         ResultSet rs = UserRepo.getUser(userID);
         User user = null;
         if (rs.next()) {
-            user = new User(rs.getString("username"), null);
+            user = new User(rs.getInt("id"), rs.getString("name"));
         }
         return user;
     }
 
     @Override
-    public List<User> getUsers() throws SQLException {
-        List<User> userlist = new ArrayList<User>();
+    public ArrayList<User> getUsers() throws SQLException {
+        ArrayList<User> userlist = new ArrayList<User>();
         ResultSet rs = UserRepo.getUsers();
         while(rs.next()) {
-            userlist.add(new User(rs.getString("username"), null));
+            userlist.add(new User(rs.getInt("id"), rs.getString("name")));
         }
         return(userlist);
     }

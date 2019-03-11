@@ -1,24 +1,27 @@
 package tech.kea.assignment.controllers;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import tech.kea.assignment.model.User;
+import tech.kea.assignment.services.Logging;
+import tech.kea.assignment.services.SessionHelper;
 import tech.kea.assignment.services.UserService;
 import tech.kea.assignment.services.UserServiceInterface;
 
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 @Controller
 public class UserController{
 
-
-    UserServiceInterface userservice = null;
-
+    private Logging logger;
+    private UserServiceInterface userservice = null;
+    private SessionHelper sessionhelper;
     public UserController()
     {
+        logger = new Logging("UserController");
         try {
             userservice = new UserService();
         } catch (SQLException e) {
@@ -26,84 +29,185 @@ public class UserController{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        sessionhelper = new SessionHelper();
     }
 
     // Viser brugerens side når man tilgår /users
     @GetMapping("/users/")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
+        logger.log("index(Model model): START");
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
+        }
         try {
             model.addAttribute("users", userservice.getUsers());
+            logger.log("index(Model model): END");
             return "/users/index";
         } catch (SQLException e) {
-            return "/error";
+            logger.log("An error occurred " + e.getMessage(), 1);
+            logger.log("index(Model model): END");
+            return "/users/error";
         }
     }
 
     @GetMapping("/users/index")
-    public String index2(Model model) {
-        try {
+    public String index2(Model model, HttpSession session)
+    {
+        logger.log("index2(Model model): START");
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
+        }
+        try
+        {
             model.addAttribute("users", userservice.getUsers());
+            logger.log("index2(Model model): END");
             return "/users/index";
         } catch (SQLException e) {
-            return "/error";
+            logger.log("An error occurred " + e.getMessage(), 1);
+            logger.log("index2(Model model): END");
+            return "/users/error";
         }
     }
 
     // Getmapping <-- start -->
     // Viser siden hvor man kan oprette brugere når man tilgår /users/create/
     @GetMapping("/users/create")
-    public String create() {
+    public String create(HttpSession session) {
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
+        }
         return "/users/create";
     }
 
     // Getpost <-- start -->
     // Håndterer logikken for at oprette en bruger og interagerer med vores repository lag
     @PostMapping("/users/create")
-    public String createUser(@ModelAttribute User user){
+    public String createUser(@ModelAttribute User user, HttpSession session){
+        logger.log("createUser(@ModelAttribute User user): START");
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
+        }
         try {
             userservice.createUser(user);
+            logger.log("Created user", 1);
+            logger.log("createUser(@ModelAttribute User user): END");
             return "redirect:/users/";
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return "redirect:/error";
+            logger.log("createUser(@ModelAttribute User user): END");
+            return "redirect:/users/error";
         }
+
     }
 
     // Viser siden hvor man kan redigere en bruger når man tilgår /users/edit/
-    @GetMapping("/users/edit")
-    public String edit() {
-        return "/users/edit";
+    @GetMapping("/users/edit/{userID}")
+    public String edit(@PathVariable int userID, Model model, HttpSession session)
+    {
+        logger.log("edit(@PathVariable int userID, Model model) : START");
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
+        }
+        try {
+            model.addAttribute("user", userservice.getUser(userID));
+            logger.log("edit(@PathVariable int userID, Model model) : END");
+            return "/users/edit";
+        } catch (SQLException e) {
+            logger.log("An error occurred " + e.getMessage(), 1);
+            logger.log("edit(@PathVariable int userID, Model model) : END");
+            return "/users/error";
+        }
     }
 
     // Håndterer logikken for at ændre en brugers oplysninger og interagerer med vores repository lag
     @PostMapping("/users/edit")
-    public String editUser(@ModelAttribute User user, @ModelAttribute int userID)
+    public String editUser(
+            @RequestParam(value="userID", required=true) int userID,
+            @RequestParam(value="newUsername", required=true) String newUsername,
+            @RequestParam(value="oldPassword", required=true) String oldPassword,
+            @RequestParam(value="newPassword", required=true) String newPassword,
+            HttpSession session
+    )
     {
-        try {
-            userservice.editUser(userID, user);
-        } catch (SQLException e) {
-            return "redirect:/error";
+        logger.log("editUser(@ModelAttribute User user, @ModelAttribute int userID): START");
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
         }
-        return "redirect:/users/";
+        try {
+            String username = userservice.getUser(userID).getUsername();
+            if(userservice.validateLoginCredentials(username, oldPassword))
+            {
+                logger.log("User validation success new username: " + newUsername + " new password: " + newPassword);
+                userservice.editUser(userID, new User(userID, newUsername, newPassword));
+                logger.log("editUser(@ModelAttribute User user, @ModelAttribute int userID): END");
+                return "redirect:/users/info/" + Integer.toString(userID);
+            }
+            else
+                {
+                    logger.log("User validation failed username: " + username + " password: " + oldPassword);
+                    logger.log("editUser(@ModelAttribute User user, @ModelAttribute int userID): END");
+                    return "redirect:/users/edit/" + Integer.toString(userID);
+                }
+
+        } catch (SQLException e) {
+            logger.log("Error " + e.getMessage());
+            logger.log("editUser(@ModelAttribute User user, @ModelAttribute int userID): END");
+            return "redirect:/users/error";
+        }
+
     }
 
     // Viser siden hvor man kan slette en bruger når man tilgår /users/delete/
-    @GetMapping("/users/delete")
-    public String delete()
+    @GetMapping("/users/delete/{userID}")
+    public String delete(@PathVariable int userID, Model model, HttpSession session)
     {
-        return "/users/delete";
+        logger.log("delete(@PathVariable int userID): START");
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
+        }
+        try {
+            model.addAttribute("user", userservice.getUser(userID));
+            logger.log("delete(@PathVariable int userID): END");
+            return "/users/delete";
+        } catch (SQLException e) {
+            logger.log("An error occurred " + e.getMessage(), 1);
+            logger.log("delete(@PathVariable int userID): END");
+            return "/users/error";
+        }
     }
 
     // Håndterer logikken for at slette brugeren og interagerer med vores repository lag
     @PostMapping("/users/delete")
-    public String deleteUser(@ModelAttribute int userID)
+    public String deleteUser(@RequestParam(value="userID", required=true) int userID, HttpSession session)
     {
+        logger.log("deleteUser(@ModelAttribute int userID): START");
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
+        }
         try {
             userservice.deleteUser(userID);
+            logger.log("deleteUser(@ModelAttribute int userID): END");
+            return "redirect:/users/";
         } catch (SQLException e) {
-            return "redirect:/error";
+            logger.log("deleteUser(@ModelAttribute int userID): END");
+            return "redirect:/users/error";
         }
-        return "redirect:/users/";
     }
 
     // Viser siden hvor man kan logge ind når man tilgår /users/login/
@@ -115,33 +219,62 @@ public class UserController{
 
     // Håndterer logikken for at validere en brugers loginoplsyninger og interagerer med vores repository lag
     @PostMapping("/users/login")
-    public String validateUserCredentials(@ModelAttribute User user)
+    public String validateUserCredentials(@ModelAttribute User user, Model model, HttpSession session)
     {
+        logger.log("validateUserCredentials(@ModelAttribute User user, Model model): START");
         try {
             if(userservice.validateLoginCredentials(user))
             {
-                //User login successfull
+                logger.log("User validated", 1);
+                session.setAttribute("user", user);
+                session.setAttribute("isAdmin", new Boolean(true));
+                logger.log("validateUserCredentials(@ModelAttribute User user, Model model): END");
                 return "redirect:/users/";
             }
             else
                 {
-                //User login failed
-                    return "redirect:/users/login";
+                    logger.log("User failed to validate. Username: "  + user.getUsername() + " userpasword: " + user.getPassword(), 1);
+                    logger.log("validateUserCredentials(@ModelAttribute User user, Model model): END");
+                    model.addAttribute("validationfailed", true);
+                    return "/users/login";
                 }
         } catch (SQLException e) {
-            return "redirect:/error";
+            logger.log("validateUserCredentials and error occured " + e.getMessage(), 1);
+            logger.log("validateUserCredentials(@ModelAttribute User user, Model model): END");
+            return "redirect:/users/error";
         }
 
 
     }
 
     // Håndterer logikken for at ændre vise en brugers oplysninger og interagerer med vores repository lag
-    @PostMapping("/users/info")
-    public String showUser(@ModelAttribute User user){
-
-
-        return "redirect:/users/info";
+    @GetMapping("/users/info/{userID}")
+    public String showUser(@PathVariable int userID, Model model, HttpSession session)
+    {
+        if(!sessionhelper.isAdmin(session))
+        {
+            logger.log("User access denied");
+            return "/users/error";
+        }
+        logger.log("showUser(@RequestParam(value=\"userID\", required=true) int userID, Model model): START");
+        try {
+            model.addAttribute("user", userservice.getUser(userID));
+            logger.log("showUser(@RequestParam(value=\"userID\", required=true) int userID, Model model): END");
+            return "/users/info";
+        } catch (SQLException e) {
+            logger.log("Error: " + e.getMessage(), 1);
+            logger.log("showUser(@RequestParam(value=\"userID\", required=true) int userID, Model model): END");
+            return "redirect:/users/error";
+        }
     }
 
-
+    @GetMapping("/users/logout")
+    public String logout(HttpSession session)
+    {
+        logger.log("logout(HttpSession session): START");
+        session.removeAttribute("user");
+        session.removeAttribute("isAdmin");
+        logger.log("logout(HttpSession session): END");
+        return "redirect:/";
+    }
 }
