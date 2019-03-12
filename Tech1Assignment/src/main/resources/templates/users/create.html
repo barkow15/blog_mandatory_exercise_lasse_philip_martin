@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create user</title>
-</head>
-<body>
+<th:block th:include="header.html"></th:block>
+
 <h1>Create User</h1>
 <form method="post" action="/users/create" modelAttribute="User">
     <p>Username: <input type="text" name="Username"></p>
     <p>Password: <input type="password" name="Password"></p>
     <input type="submit" value="Create user">
 </form>
-</body>
-</html>
+
+<th:block th:include="footer.html"></th:block>

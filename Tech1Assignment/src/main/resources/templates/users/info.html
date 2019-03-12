@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit user</title>
-</head>
-<body>
+<th:block th:include="header.html"></th:block>
+
 <h1>User info</h1>
 <p>ID: </p><p th:text="${user.getUserID()}"></p>
 <p>Username: </p><p th:text="${user.getUsername()}"></p>
 <br/>
 <a href="/users/">Tilbage</a>
 
-</body>
-</html>
+<th:block th:include="footer.html"></th:block>
