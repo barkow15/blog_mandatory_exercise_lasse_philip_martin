@@ -1,47 +1,25 @@
 <th:block th:include="header.html"></th:block>
+<th:block th:include="menu.html"></th:block>
 
-<div style="background-color:cyan;border-right:1px solid black;width:200px;float:left;margin-right:5px;border-bottom:1px solid black;padding-left:5px;padding-bottom:5px">
-<h2 style="padding:0;margin:0">Menu</h2>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<a href="/users/login">Login</a>
+<div id="content">
+    <h1>Login</h1>
 
-</div>
-
-<div>
-<h1>Login</h1>
     <div th:if="${validationfailed}" style="color: red">
         Login fejlet
     </div>
-<form action="/users/login" method="post">
-username:<br>
-<input type="text" name="username">
-<br>
-password:<br>
-<input type="password" name="password">
-<br>
-<br>
-<input type="submit" value="Login">
-</form>
+    <form action="/users/login" method="post">
+        username:<br>
+        <input type="text" name="username">
+        <br>
+        password:<br>
+        <input type="password" name="password">
+        <br>
+        <br>
+        <input type="submit" value="Login">
+    </form>
 
 
-</p>
+    </p>
 </div>
 
 <th:block th:include="footer.html"></th:block>
