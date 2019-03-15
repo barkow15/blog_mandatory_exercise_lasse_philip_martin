@@ -1,5 +1,6 @@
 package tech.kea.assignment.services;
 
+import org.springframework.stereotype.Service;
 import tech.kea.assignment.repository.UserRepoInterface;
 import tech.kea.assignment.repository.UserRepoMySQL;
 import tech.kea.assignment.model.User;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UserService implements UserServiceInterface {
 
     UserRepoInterface UserRepo;

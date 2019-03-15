@@ -13,3 +13,25 @@
     width: 510px;
     padding: 20px 30px;
 }
+
+table {
+    border-collapse:separate;
+    border-spacing:10px 10px;
+}​​​​​​​​​​​​​
+
+tr.margin{
+    margin-top: 5px;
+ margin-bottom: 5px;
+ }
+
+td.padded {
+    padding: 5px;
+}
+
+div.right{
+    float: right;
+}
+
+h1.block{
+    display: inline-block;
+}

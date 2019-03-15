@@ -1,10 +1,11 @@
 package tech.kea.assignment.services;
 
+import org.springframework.stereotype.Service;
 import tech.kea.assignment.model.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+@Service
 public interface UserServiceInterface{
     public void createUser(User user)  throws SQLException;
     public void deleteUser(int userID) throws SQLException;

@@ -1,6 +1,7 @@
 package tech.kea.assignment.controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +17,16 @@ import java.sql.SQLException;
 @Controller
 public class UserController{
 
+    @Autowired
     private Logging logger;
-    private UserServiceInterface userservice = null;
+    @Autowired
+    private UserServiceInterface userservice;
+    @Autowired
     private SessionHelper sessionhelper;
     public UserController()
     {
         logger = new Logging("UserController");
-        try {
-            userservice = new UserService();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
         sessionhelper = new SessionHelper();
     }
 

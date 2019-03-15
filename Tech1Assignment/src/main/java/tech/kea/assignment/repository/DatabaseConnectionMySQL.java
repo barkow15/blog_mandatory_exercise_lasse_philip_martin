@@ -1,9 +1,10 @@
 package tech.kea.assignment.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
+@Repository
 public class DatabaseConnectionMySQL {
     Connection conn = null;
     private boolean debug = true;

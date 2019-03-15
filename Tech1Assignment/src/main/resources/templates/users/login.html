@@ -7,16 +7,18 @@
     <div th:if="${validationfailed}" style="color: red">
         Login fejlet
     </div>
-    <form action="/users/login" method="post">
-        username:<br>
-        <input type="text" name="username">
-        <br>
-        password:<br>
-        <input type="password" name="password">
-        <br>
-        <br>
-        <input type="submit" value="Login">
-    </form>
+    <div class="form-group">
+        <form action="/users/login" method="post">
+            username:<br>
+            <input type="text" name="username" class="form-control">
+            <br>
+            password:<br>
+            <input type="password" name="password" class="form-control">
+            <br>
+            <br>
+            <input type="submit" value="Login" class="btn btn-info form-control">
+        </form>
+    </div>
 
 
     </p>

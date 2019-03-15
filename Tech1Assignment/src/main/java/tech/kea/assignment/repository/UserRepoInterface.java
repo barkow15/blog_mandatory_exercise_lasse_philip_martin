@@ -1,8 +1,11 @@
 package tech.kea.assignment.repository;
 
+import org.springframework.stereotype.Repository;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Repository
 public interface UserRepoInterface{
     public int createUser(String username, String password)  throws SQLException;
     public void deleteUser(int userID) throws SQLException;

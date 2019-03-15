@@ -1,9 +1,11 @@
 package tech.kea.assignment.services;
 
+import org.springframework.stereotype.Service;
 import tech.kea.assignment.model.User;
 
 import javax.servlet.http.HttpSession;
 
+@Service
 public class SessionHelper
 {
     public boolean isAdmin(HttpSession session)

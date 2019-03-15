@@ -1,14 +1,33 @@
 <th:block th:include="header.html"></th:block>
 
-<h1>Edit User</h1>
-<p>To change a username or password, please provide the old password</p>
+<div>
+    <h1 class="block">Edit User</h1>
+    <div class="right"><a href="/users/">Cancel</a></div>
+</div>
 
-<form method="post" action="/users/edit">
-    <input type="hidden" name="userID" th:value="${user.getUserID()}">
-    <p>Username: <input type="text" name="newUsername" th:value="${user.getUsername()}"></p>
-    <p>Old password: <input type="password" name="oldPassword"></p>
-    <p>New password: <input type="password" name="newPassword"></p>
-    <input type="submit" value="Edit">
-</form>
+<p>To change a username or password, please provide the old password</p>
+<div class="form-group">
+    <form method="post" action="/users/edit">
+        <input type="hidden" name="userID" th:value="${user.getUserID()}">
+        <table>
+            <tr>
+                <td class="padded">Username:</td>
+                <td class="padded"><input type="text" name="newUsername" th:value="${user.getUsername()}" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="padded">Old password:</td>
+                <td class="padded"><input type="password" name="oldPassword" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="padded">New password:</td>
+                <td class="padded"><input type="password" name="newPassword" class="form-control"></td>
+            </tr>
+            <tr>
+                <td class="padded" colspan="2"><input type="submit" value="Edit" class="btn btn-info form-control"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
 
 <th:block th:include="footer.html"></th:block>
