@@ -1,0 +1,18 @@
+<th:block th:include="header.html"></th:block>
+
+<h1>Create blog post</h1>
+<form method="post" action="/posts/create" modelAttribute="Post">
+    <p>
+        <label for="title">Title:</label>
+        <input type="text" name="title">
+
+        <label for="content">Content:</label>
+        <input type="textfield" name="content">
+
+        <label for="hidden">Hide post:</label>
+        <input type="checkbox" name="hidden">
+    </p>
+    <input type="submit" value="Create post">
+</form>
+
+<th:block th:include="footer.html"></th:block>
