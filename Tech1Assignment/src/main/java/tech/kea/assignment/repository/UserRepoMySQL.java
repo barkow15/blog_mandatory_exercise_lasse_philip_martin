@@ -8,15 +8,15 @@ import java.sql.SQLException;
 
 
 /**
- * The UserRepoMySQL class implements metodes that gives access to
+ * The UserRepoMySQL class implements methods that gives access to
  *   CRUD operations
  *   validations of users
  *   Requesting a single user
  *   Requesting all users
  *
- * This class expects you to use a MySQL database
+ *   This class expects you to use a MySQL database
  *
- * Users are expected to be located in the `users` table.
+ *   Users are expected to be located in the `users` table.
  *
  * The `users` table is constructed using the following SQL
  * CREATE TABLE `users` (

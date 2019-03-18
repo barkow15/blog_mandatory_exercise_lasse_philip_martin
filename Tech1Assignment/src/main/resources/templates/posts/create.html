@@ -5,13 +5,14 @@
 <form method="post" action="/posts/create" modelAttribute="Post">
     <label for="title">Title:</label>
     <input type="text" name="title">
-
+    <br/>
     <label for="content">Content:</label>
-    <input type="textfield" name="content">
-
-
+    <br/>
+    <textarea type="textfield" name="content" cols="30" rows="10"></textarea>
+    <br/>
     <label for="hidden">Hide post:</label>
     <input type="checkbox" name="hidden">
+    <br/>
     <input type="submit" value="Create post">
 </form>
 
