@@ -6,6 +6,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/**
+ * The UserRepoMySQL class implements metodes that gives access to
+ *   CRUD operations
+ *   validations of users
+ *   Requesting a single user
+ *   Requesting all users
+ *
+ * This class expects you to use a MySQL database
+ *
+ * Users are expected to be located in the `users` table.
+ *
+ * The `users` table is constructed using the following SQL
+ * CREATE TABLE `users` (
+ *   `id` int(11) NOT NULL AUTO_INCREMENT,
+ *   `name` varchar(255) DEFAULT NULL,
+ *   `password` varchar(255) DEFAULT NULL,
+ *   PRIMARY KEY (`id`),
+ *   UNIQUE KEY `id_UNIQUE` (`id`),
+ *   UNIQUE KEY `name_UNIQUE` (`name`)
+ * ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8
+ */
 @Repository
 public class UserRepoMySQL implements UserRepoInterface
 {

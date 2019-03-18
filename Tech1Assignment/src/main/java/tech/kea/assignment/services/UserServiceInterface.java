@@ -5,6 +5,10 @@ import tech.kea.assignment.model.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+/**
+ * The user service Interface, defines CRUD, validation of users, get a single user and all users.
+ */
 @Service
 public interface UserServiceInterface{
     public void createUser(User user)  throws SQLException;

@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The repository interface UserRepoInterface defines metodes for CRUD, validation of users, get a single user and all users.
+ * */
+
 @Repository
 public interface UserRepoInterface{
     public int createUser(String username, String password)  throws SQLException;
