@@ -23,5 +23,11 @@
 
     </p>
 </div>
+<table>
+<tr th:each="menuitem : ${Menu.getTopMenu()}">
+    <td class="padded"><a th:href="@{/users/info/}" th:text="${menuitem.getTitle()}"></a></td>
+
+</tr>
+</table>
 
 <th:block th:include="footer.html"></th:block>

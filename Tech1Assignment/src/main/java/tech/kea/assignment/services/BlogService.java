@@ -1,6 +1,6 @@
 package tech.kea.assignment.services;
 
-import com.mysql.cj.protocol.Resultset;
+
 import org.springframework.stereotype.Service;
 import tech.kea.assignment.model.Post;
 import tech.kea.assignment.repository.BlogRepoInterface;

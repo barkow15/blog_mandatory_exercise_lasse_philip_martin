@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import tech.kea.assignment.model.Menu;
 import tech.kea.assignment.model.User;
-import tech.kea.assignment.services.Logging;
-import tech.kea.assignment.services.SessionHelper;
-import tech.kea.assignment.services.UserService;
-import tech.kea.assignment.services.UserServiceInterface;
+import tech.kea.assignment.services.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
@@ -279,5 +277,17 @@ public class UserController{
         session.removeAttribute("isAdmin");
         logger.log("logout(HttpSession session): END");
         return "redirect:/";
+    }
+
+    @ModelAttribute("Menu")
+    public Menu getMenu(){
+        Menu m = new Menu();
+        try {
+            m.setTopMenu((new MenuService()).getMenuItems());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } return m;
     }
 }

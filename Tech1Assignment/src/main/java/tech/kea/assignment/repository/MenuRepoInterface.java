@@ -11,5 +11,7 @@ import java.sql.SQLException;
 
 @Repository
 public interface MenuRepoInterface{
-
+    public int createMenuItem(String navn, int sortorder, int parentId, int blogId, String url)  throws SQLException;
+    public ResultSet getMenuItem(int MenuID) throws SQLException;
+    public ResultSet getMenuItems() throws SQLException;
 }
