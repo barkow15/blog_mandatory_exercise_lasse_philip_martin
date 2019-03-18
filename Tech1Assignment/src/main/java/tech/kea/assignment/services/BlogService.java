@@ -1,6 +1,7 @@
 package tech.kea.assignment.services;
 
 import com.mysql.cj.protocol.Resultset;
+import org.springframework.stereotype.Service;
 import tech.kea.assignment.model.Post;
 import tech.kea.assignment.repository.BlogRepoInterface;
 import tech.kea.assignment.repository.BlogRepoMySQL;
@@ -9,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@Service
 public class BlogService implements BlogServiceInterface{
 
     private BlogRepoInterface blogRepo;
@@ -55,7 +57,7 @@ public class BlogService implements BlogServiceInterface{
         Post p = post;
 
         // Vi "pakker" vores post objekt ud og gemmer dettes attributter i variabler
-        int     postID       = p.getId();
+        int     postID       = p.getPostId();
         String  postContent  = p.getContent();
         String  postTitle    = p.getTitle();
         boolean postHidden   = p.isHidden();

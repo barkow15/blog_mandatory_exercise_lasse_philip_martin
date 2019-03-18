@@ -66,7 +66,7 @@ public class BlogRepoMySQL implements BlogRepoInterface {
     }
     public ResultSet   getPosts() throws SQLException{
         // Vores SQL Statement hvor vi henter alle kolonner i tabellen posts
-        String SQL = "SELECT * FROM posts";
+        String SQL = "SELECT * FROM posts WHERE `hidden` = 0";
 
         // Forbered SQL Statement
         PreparedStatement pstmt = dbCon.getConnection().prepareStatement(SQL);

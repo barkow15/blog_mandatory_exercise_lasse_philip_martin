@@ -3,9 +3,22 @@
 
 <div id="content">
     <h2>Velkommen til Martin, Philip og Lasses blog</h2>
-    <p>
-        Blogposts
-    </p>
+    <div class="posts-container">
+        <h2>
+            Blogposts
+        </h2>
+
+        <!-- Blog post start -->
+        <div class="post" th:each="post : ${posts}">
+            <a th:href="'posts/post/' + ${post.getPostId()}"><h3 th:text="${post.getTitle()}"></h3></a>
+
+            <p th:text="${post.getContent()}"></p>
+
+            <a class="btn btn-primary" role="button" th:href="'posts/post/' + ${post.getPostId()}">Read post</a>
+        </div>
+        <!-- Blog post /end -->
+
+    </div>
 </div>
 
 <th:block th:include="footer.html"></th:block>
