@@ -10,6 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The user service implementation, is used to:
+ *   CRUD users
+ *   validate users
+ *   Get a single user from ID
+ *   Get all users
+ */
 @Service
 public class UserService implements UserServiceInterface {
 
@@ -19,6 +27,9 @@ public class UserService implements UserServiceInterface {
         this(new UserRepoMySQL());
     }
 
+    /**
+     * If you prefer, you can use your own user repository object as long as it implements UserRepoInterface, as default a MySql database is used
+     */
     public UserService(UserRepoInterface UserRepo)
     {
         this.UserRepo = UserRepo;

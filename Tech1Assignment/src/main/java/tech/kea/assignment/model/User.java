@@ -1,5 +1,8 @@
 package tech.kea.assignment.model;
 
+/**
+ * Contains data for a single user
+ */
 public class User
 {
     // User egenskaber

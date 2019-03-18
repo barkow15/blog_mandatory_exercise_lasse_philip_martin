@@ -5,6 +5,9 @@ import tech.kea.assignment.model.User;
 
 import javax.servlet.http.HttpSession;
 
+
+/**
+ * The SessionHelper, helps get data out of the HttpSession*/
 @Service
 public class SessionHelper
 {

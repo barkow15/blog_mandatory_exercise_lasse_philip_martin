@@ -2,6 +2,11 @@ package tech.kea.assignment.services;
 
 import org.springframework.stereotype.Service;
 
+
+/**
+ * The Logging server is used for logging comments, and is used to give easy access to switch from 1 logging module to another
+ * During testing, logging is done to the command line
+ */
 @Service
 public class Logging {
     String callerclass = "";

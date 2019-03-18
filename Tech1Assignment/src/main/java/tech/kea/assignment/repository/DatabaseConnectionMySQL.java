@@ -4,6 +4,10 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
+
+/**
+ * DatabaseConnectionMySQL contains the implementation of the MySQL connection, and gives access to running DML AND DDL on the MySQL database.
+ */
 @Repository
 public class DatabaseConnectionMySQL {
     Connection conn = null;

@@ -14,6 +14,10 @@ import tech.kea.assignment.services.UserServiceInterface;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
+
+/**
+ * Contains user CRUD operations and validation
+ * */
 @Controller
 public class UserController{
 
