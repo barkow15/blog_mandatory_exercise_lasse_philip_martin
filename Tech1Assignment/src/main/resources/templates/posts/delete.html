@@ -4,8 +4,8 @@
 <p>You are about to delete the post: <span th:text="${post.getTitle()}"></span></p>
 <p>Please confirm.</p>
 <form method="post" action="/posts/delete">
-    <input type="hidden" name="userID" th:value="${post.getID()}">
-    <input type="submit" th:value="I want to delete the post with title: ${post.getTitle()}">
+    <input type="hidden" name="postID" th:value="${post.getPostId()}">
+    <input type="submit" th:value="'I want to delete the post with title: ' + ${post.getTitle()}">
 </form>
 
 <th:block th:include="footer.html"></th:block>

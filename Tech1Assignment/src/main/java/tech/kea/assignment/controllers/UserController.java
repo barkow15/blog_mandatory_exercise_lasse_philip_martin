@@ -232,7 +232,7 @@ public class UserController{
                 session.setAttribute("user", user);
                 session.setAttribute("isAdmin", new Boolean(true));
                 logger.log("validateUserCredentials(@ModelAttribute User user, Model model): END");
-                return "redirect:/users/";
+                return "redirect:/";
             }
             else
                 {

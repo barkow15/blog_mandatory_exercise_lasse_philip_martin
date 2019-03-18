@@ -37,7 +37,12 @@ public class BlogRepoMySQL implements BlogRepoInterface {
     public void   editPost(int id, String title, String content, boolean hidden) throws SQLException{
         // Vores SQL Statement
         String SQL = "UPDATE blogdat18a.posts SET title = ?, content = ?, hidden = ? WHERE id = ?";
-
+        int hiddenInt;
+        if(hidden) {
+            hiddenInt = 1;
+        }else{
+            hiddenInt = 0;
+        }
         // Forbered SQL Statement
         PreparedStatement preparedStatement = dbCon.getConnection().prepareStatement(SQL);
 
@@ -46,7 +51,7 @@ public class BlogRepoMySQL implements BlogRepoInterface {
         // Setter andet ? i vores SQL String til at være ligmed content
         preparedStatement.setString(2, content);
         // Setter tredje ? i vores SQL String til at være ligmed hidden
-        preparedStatement.setBoolean(3, hidden);
+        preparedStatement.setInt(3, hiddenInt);
         // Setter fjere ? i vores SQL String til at være ligmed id
         preparedStatement.setInt(4, id);
 

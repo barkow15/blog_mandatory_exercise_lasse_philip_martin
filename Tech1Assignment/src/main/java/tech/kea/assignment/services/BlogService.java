@@ -66,7 +66,7 @@ public class BlogService implements BlogServiceInterface{
         Vi bruger vores repository lag via blogRepo og laver en ny post post
         ved at køre editPost metoden med de udpakkede attributter som parametre
         */
-        blogRepo.editPost(postID, postContent, postTitle, postHidden);
+        blogRepo.editPost(postID, postTitle, postContent, postHidden);
     }
 
     @Override

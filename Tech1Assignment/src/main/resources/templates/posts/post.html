@@ -1,7 +1,15 @@
 <th:block th:include="header.html"></th:block>
 
-<h2><span th:text="${post.getTitle()}"></span></h2>
+<div th:if="${post.isHidden() == false}">
+    <h2><span th:text="${post.getTitle()}"></span></h2>
 
-<p th:text="${post.getContent()}"></p>
+    <p th:text="${post.getContent()}"></p>
+</div>
 
+<p th:if="${post.isHidden() == true}">This post is hidden.</p>
+
+<div th:if="${isAdmin}">
+    <a class="btn btn-warning" role="button" th:href="'/posts/edit/' + ${post.getPostId()}">Edit post <i class="fas fa-edit"></i></i></a>
+    <a class="btn btn-danger" role="button" th:href="'/posts/delete/' + ${post.getPostId()}">Delete post <i class="fa fa-trash" aria-hidden="true"></i></a>
+</div>
 <th:block th:include="footer.html"></th:block>
