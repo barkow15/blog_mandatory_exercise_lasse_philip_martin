@@ -9,4 +9,5 @@ public interface BlogRepoInterface{
     public void   editPost(int postID,String title, String content, boolean hidden)       throws SQLException;
     public ResultSet   getPost(int id)       throws SQLException;
     public ResultSet   getPosts()            throws SQLException;
+    public ResultSet   getAllPosts()         throws  SQLException;
 }

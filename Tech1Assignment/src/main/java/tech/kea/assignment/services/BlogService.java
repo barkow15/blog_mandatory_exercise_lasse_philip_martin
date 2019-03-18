@@ -105,6 +105,30 @@ public class BlogService implements BlogServiceInterface{
         while(rs.next()) {
             // Tilføjer hver post til vores ArrayList<Post> som et Post objekt
             posts.add(
+                    new Post(
+                            rs.getInt("id"),
+                            rs.getString("title"),
+                            rs.getString("content"),
+                            rs.getBoolean("hidden")
+                    )
+            );
+        }
+
+        // Returnerer afslutningsvis vores ArrayList<Post>
+        return posts;
+    }
+
+    @Override
+    public ArrayList<Post> getAllPosts() throws SQLException {
+        // Initialiserer vores posts variabel af typen arrayList og sætter den til null som standard
+        ArrayList<Post> posts = new ArrayList<>();
+
+        ResultSet rs = blogRepo.getAllPosts();
+
+        // Så længe vi kan hente posts henter vi den enkelte post via en while løkke
+        while(rs.next()) {
+            // Tilføjer hver post til vores ArrayList<Post> som et Post objekt
+            posts.add(
                 new Post(
                     rs.getInt("id"),
                     rs.getString("title"),

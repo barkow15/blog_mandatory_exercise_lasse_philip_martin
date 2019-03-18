@@ -79,4 +79,15 @@ public class BlogRepoMySQL implements BlogRepoInterface {
         // Eksekver SQL statement og returner Resultset med den enkelte post
         return pstmt.executeQuery();
     }
+
+    public ResultSet   getAllPosts() throws SQLException{
+        // Vores SQL Statement hvor vi henter alle kolonner i tabellen posts
+        String SQL = "SELECT * FROM posts";
+
+        // Forbered SQL Statement
+        PreparedStatement pstmt = dbCon.getConnection().prepareStatement(SQL);
+
+        // Eksekver SQL statement og returner Resultset med den enkelte post
+        return pstmt.executeQuery();
+    }
 }

@@ -11,4 +11,5 @@ public interface BlogServiceInterface{
     public void   editPost(Post post)   throws SQLException;
     public Post   getPost(int id)       throws SQLException;
     public ArrayList<Post> getPosts()   throws SQLException;
+    public ArrayList<Post> getAllPosts()throws SQLException;
 }

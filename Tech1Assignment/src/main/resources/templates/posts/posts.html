@@ -1,0 +1,37 @@
+<th:block th:include="header.html"></th:block>
+
+<div>
+    <h1 class="block">Posts</h1>
+    <div class="right">
+        <a href="/posts/create">Create Post</a>
+    <!--
+    <a href="/users/edit">Edit</a>,
+    <a href="/users/delete/1">Delete</a>,
+    <a href="/users/info">Info</a>,
+    <a href="/users/index">Index (here)</a>,
+    -->
+    </div>
+</div>
+
+<div>
+    <table>
+        <thead>
+            <tr style="border-bottom: 1px solid black">
+                <th>ID</b></th>
+                <th>Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="post : ${posts}">
+                <td class="padded"><a th:href="@{/posts/post/} + ${post.getPostId()}" th:text="${post.getPostId()}"></a></td>
+                <td class="padded"><a th:href="@{/posts/post/} + ${post.getPostId()}" th:text="${post.getTitle()}"></a></td>
+                <td class="padded"><a th:href="@{/posts/edit/} + ${post.getPostId()}" class="glyphicon glyphicon-pencil"></a></td>
+                <td class="padded"><a th:href="@{/posts/delete/} + ${post.getPostId()}" class="glyphicon glyphicon-remove"></a></td>
+                <td><span th:if="${post.isHidden()}" class="padded">(hidden)</span></td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<th:block th:include="footer.html"></th:block>

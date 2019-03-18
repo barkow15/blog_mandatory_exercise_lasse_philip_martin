@@ -43,6 +43,19 @@ public class BlogController{
             return "/posts/error";
         }
     }
+    // Viser den alle posts
+    @GetMapping ("/posts")
+    public String showPosts( Model model, HttpSession session ) {
+        try {
+            model.addAttribute("posts", blogservice.getAllPosts());
+            logger.log("index(Model model): END");
+            return "/posts/posts";
+        } catch (SQLException e) {
+            logger.log("An error occurred " + e.getMessage(), 1);
+            logger.log("index(Model model): END");
+            return "/posts/error";
+        }
+    }
 
     // Viser den enkelte post ud fra postID angivet i URL'en
     @GetMapping ("/posts/post/{postID}")
@@ -134,8 +147,10 @@ public class BlogController{
             , HttpSession session) {
         logger.log("editPost(@ModelAttribute int postID): START");
         boolean hiddenStatus = false;
-        if(hidden.equalsIgnoreCase("on")){
-            hiddenStatus = true;
+        if(hidden != null) {
+            if (hidden.equalsIgnoreCase("on")) {
+                hiddenStatus = true;
+            }
         }
 
         if(!sessionhelper.isAdmin(session))
@@ -145,10 +160,10 @@ public class BlogController{
         }
         try {
             Post p = new Post(postID, title, content, hiddenStatus);
-            logger.log("editing post with postID:" + postID + " with data(" + title + ", " + content + ", " + hidden + ")");
+            //logger.log("editing post with postID:" + postID + " with data(" + title + ", " + content + ", " + hidden + ")");
             blogservice.editPost(p);
             logger.log("editPost(@ModelAttribute int postID): END");
-            return "redirect:/posts/post/" + postID;
+            return "redirect:/posts/";
         } catch (SQLException e) {
             logger.log("editPost(@ModelAttribute int postID): END");
             return "redirect:/posts/error";
