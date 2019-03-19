@@ -10,23 +10,23 @@ import java.sql.SQLException;
 public class MenuRepoMySQL implements MenuRepoInterface {
     DatabaseConnectionMySQL dbCon = null;
 
-        public MenuRepoMySQL() throws SQLException, ClassNotFoundException {
+    public MenuRepoMySQL() throws SQLException, ClassNotFoundException {
 
-            dbCon = new DatabaseConnectionMySQL();
-        }
+        dbCon = new DatabaseConnectionMySQL();
+    }
 
 
 
-        public int createMenuItem(String name, int sortorder, int parentID, int blogID, String url)  throws SQLException {
-            String SQL= "INSERT INTO menu (navn,sortorder,parentId,blogId,url) VALUES (?,?,?,?,?)";
-            PreparedStatement preparedStatment = dbCon.getConnection().prepareStatement(SQL);
-            preparedStatment.setString(1,name);
-            preparedStatment.setInt(2,sortorder);
-            preparedStatment.setInt(3,parentID);
-            preparedStatment.setInt(4,blogID);
-            preparedStatment.setString(5,url);
-            return preparedStatment.executeUpdate();
-}
+    public int createMenuItem(String name, int sortorder, int parentID, int blogID, String url)  throws SQLException {
+        String SQL= "INSERT INTO menu (navn,sortorder,parentId,blogId,url) VALUES (?,?,?,?,?)";
+        PreparedStatement preparedStatment = dbCon.getConnection().prepareStatement(SQL);
+        preparedStatment.setString(1,name);
+        preparedStatment.setInt(2,sortorder);
+        preparedStatment.setInt(3,parentID);
+        preparedStatment.setInt(4,blogID);
+        preparedStatment.setString(5,url);
+        return preparedStatment.executeUpdate();
+    }
 
 
     public ResultSet getMenuItem(int menuID) throws SQLException
