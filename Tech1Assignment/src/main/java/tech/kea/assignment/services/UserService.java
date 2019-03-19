@@ -37,17 +37,23 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public void createUser(User user) throws SQLException {
+        UserRepo.adminMode();
         UserRepo.createUser(user.getUsername(), user.getPassword());
+        UserRepo.userMode();
     }
 
     @Override
     public void deleteUser(int userID) throws SQLException {
+        UserRepo.adminMode();
         UserRepo.deleteUser(userID);
+        UserRepo.userMode();
     }
 
     @Override
     public void editUser(int userID, User user) throws SQLException {
+        UserRepo.adminMode();
         UserRepo.editUser(userID, user.getUsername(), user.getPassword());
+        UserRepo.userMode();  
     }
 
     @Override
@@ -78,5 +84,15 @@ public class UserService implements UserServiceInterface {
             userlist.add(new User(rs.getInt("id"), rs.getString("name")));
         }
         return(userlist);
+    }
+
+    public void userMode() throws SQLException
+    {
+        UserRepo.userMode();
+    }
+
+    public void adminMode() throws SQLException
+    {
+        UserRepo.adminMode();
     }
 }

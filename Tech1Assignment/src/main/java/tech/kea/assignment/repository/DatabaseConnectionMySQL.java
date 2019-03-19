@@ -17,7 +17,23 @@ public class DatabaseConnectionMySQL {
     public DatabaseConnectionMySQL() throws SQLException, ClassNotFoundException {
         // Loader databasedriveren
         Class.forName("com.mysql.cj.jdbc.Driver");
+        userMode();
+   }
 
+   public void userMode() throws SQLException {
+       // DB forbindelsesoplysninger
+       String username = "blogdat18a";
+       String password = "Wk900N?9_pR7";
+       String server   = "den1.mysql5.gear.host";
+       String dbName   = "blogdat18a";
+       String port     = "3306";
+       this.conn = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + dbName, username, password);
+   }
+
+    public void adminMode() throws SQLException {
+        if(conn != null){
+            conn.close();
+        }
         // DB forbindelsesoplysninger
         String username = "blogdat18a";
         String password = "Wk900N?9_pR7";
@@ -26,7 +42,6 @@ public class DatabaseConnectionMySQL {
         String port     = "3306";
         this.conn = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + dbName, username, password);
     }
-
 
     // Metode som ekskverer MySQL statements
     private int executeSql(String sql)
