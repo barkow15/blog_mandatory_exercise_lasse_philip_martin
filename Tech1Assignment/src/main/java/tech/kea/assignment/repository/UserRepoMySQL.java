@@ -87,4 +87,14 @@ public class UserRepoMySQL implements UserRepoInterface
         PreparedStatement pstmt = conn.getConnection().prepareStatement(sql);
         return pstmt.executeQuery();
     }
+
+    public void userMode() throws SQLException
+    {
+        conn.userMode();
+    }
+
+    public void adminMode() throws SQLException
+    {
+        conn.adminMode();
+    }
 }

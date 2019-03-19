@@ -18,4 +18,7 @@ public interface UserServiceInterface{
     public boolean validateLoginCredentials(String username, String password) throws SQLException;
     public User getUser(int userID) throws SQLException;
     public ArrayList<User> getUsers() throws SQLException;
+
+    public void userMode() throws SQLException;
+    public void adminMode() throws SQLException;
 }

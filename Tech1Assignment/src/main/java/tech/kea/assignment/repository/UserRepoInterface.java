@@ -18,4 +18,7 @@ public interface UserRepoInterface{
 
     public ResultSet getUser(int userID) throws SQLException;
     public ResultSet getUsers() throws SQLException;
+
+    public void userMode() throws SQLException;
+    public void adminMode() throws SQLException;
 }
