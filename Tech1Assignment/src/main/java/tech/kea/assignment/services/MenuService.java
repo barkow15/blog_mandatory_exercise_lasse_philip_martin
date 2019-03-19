@@ -68,11 +68,38 @@ public class MenuService implements MenuServiceInterface {
 */
 
     public ArrayList<MenuItem> getMenuItems() throws SQLException {
+        int[]menuqueue = new int[10];
+        int menuposition = 0;
+
+
         ArrayList<MenuItem> menuItemList = new ArrayList<MenuItem>();
         ResultSet rs = MenuRepo.getMenuItems();
         while(rs.next()) {
-           menuItemList.add(new MenuItem(rs.getInt("id"),rs.getString("name"),rs.getString("url") ));
+            while (menuposition > 0 && menuqueue[menuposition-1]!= rs.getInt("parentID")){
+                menuposition--;
+            }
+            menuqueue[menuposition]=rs.getInt("id");
+            menuposition++;
+            String Title = rs.getString("name");
+           switch (menuposition) {
+                case 1:
+                     Title = "<b>"+Title+"</b>";
+                        break;
+               case 2:
+                   Title =    "&nbsp"+ Title;
+                   break;
+               case 3:
+                   Title = "&nbsp&nbsp" + Title;
+                   break;
+           }
+           String u = rs.getString("url");
+           if (u==null) {
+              u = "/posts/post/"+rs.getInt("blogID");
+
+            }
+            menuItemList.add(new MenuItem(rs.getInt("id"),Title,u ));
         }
         return(menuItemList);
     }
+
 }

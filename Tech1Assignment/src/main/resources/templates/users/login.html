@@ -25,7 +25,7 @@
 </div>
 <table>
 <tr th:each="menuitem : ${Menu.getTopMenu()}">
-    <td class="padded"><a th:href="@{/users/info/}" th:text="${menuitem.getTitle()}"></a></td>
+    <td class="padded"><a th:href="${menuitem.getUrl()}" th:text="${menuitem.getTitle()}"></a></td>
 
 </tr>
 </table>
