@@ -12,7 +12,7 @@
         <div class="post" th:each="post : ${posts}">
             <a th:href="'posts/post/' + ${post.getPostId()}"><h3 th:text="${post.getTitle()}"></h3></a>
 
-            <p th:text="${post.getContent()}"></p>
+            <p th:utext="${post.getContentPreview(100)}"></p>
 
             <a class="btn btn-primary" role="button" th:href="'posts/post/' + ${post.getPostId()}">Read post</a>
             <a class="btn btn-warning" role="button" th:if="${isAdmin}" th:href="'posts/edit/' + ${post.getPostId()}">Edit post <i class="fas fa-edit"></i></i></a>
