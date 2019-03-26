@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import tech.kea.assignment.model.Menu;
 import tech.kea.assignment.model.Post;
 import tech.kea.assignment.model.User;
-import tech.kea.assignment.services.BlogServiceInterface;
-import tech.kea.assignment.services.Logging;
-import tech.kea.assignment.services.SessionHelper;
-import tech.kea.assignment.services.UserServiceInterface;
+import tech.kea.assignment.services.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
@@ -71,10 +69,7 @@ public class BlogController{
             return "/posts/error";
         }
     }
-    @ModelAttribute ("isAdmin")
-    public boolean isAdmin(HttpSession session){
-        return sessionhelper.isAdmin(session);
-    }
+
     // Viser siden hvor man kan slette en bruger når man tilgår /users/delete/
     @GetMapping("/posts/delete/{postID}")
     public String delete(@PathVariable int postID, Model model, HttpSession session)
@@ -209,5 +204,22 @@ public class BlogController{
     @GetMapping("/pages/{id}")
     public String getPage(@PathVariable int pageid){
         return "/pages";
+    }
+
+    @ModelAttribute ("isAdmin")
+    public boolean isAdmin(HttpSession session){
+        return sessionhelper.isAdmin(session);
+    }
+
+    @ModelAttribute("Menu")
+    public Menu getMenu(){
+        Menu m = new Menu();
+        try {
+            m.setTopMenu((new MenuService()).getMenuItems());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } return m;
     }
 }

@@ -1,5 +1,4 @@
 <th:block th:include="header.html"></th:block>
-<th:block th:include="menu.html"></th:block>
 
 <div id="content">
     <h1>Login</h1>
@@ -23,11 +22,5 @@
 
     </p>
 </div>
-<table>
-<tr th:each="menuitem : ${Menu.getTopMenu()}">
-    <td class="padded"><a th:href="${menuitem.getUrl()}" th:text="${menuitem.getTitle()}"></a></td>
-
-</tr>
-</table>
 
 <th:block th:include="footer.html"></th:block>

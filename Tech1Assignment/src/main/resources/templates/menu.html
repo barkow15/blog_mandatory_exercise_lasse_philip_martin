@@ -1,13 +1,19 @@
-<div id="menu" xmlns:th="http://www.w3.org/1999/xhtml">
+<div xmlns:th="http://www.w3.org/1999/xhtml">
     <h2>Menu</h2>
+    <table>
+        <tr th:each="menuitem : ${Menu.getTopMenu()}">
+            <td class="padded"><a th:href="${menuitem.getHTMLLink()}" th:utext="${menuitem.getName()}" class="menu"></a></td>
 
+        </tr>
+    </table>
+    <br/>
     <div th:if="${isAdmin}">
         <b>Users:</b><br/>
-        <a href="/users/create">Create</a><br/>
-        <a href="/users/index">Index</a><br/>
-        <a href="/users/logout">Logout</a>
+        <a href="/posts/" class="menu">Manage posts</a><br/>
+        <a href="/users/index" class="menu">Manage users</a><br/>
+        <a href="/menu/index" class="menu">Manage menu</a>
     </div>
     <div th:unless="${isAdmin}">
-        <a href="/users/login">Login</a>
+        <a href="/users/login" class="menu">Login</a>
     </div>
 </div>

@@ -2,12 +2,7 @@
     width: 960px;
     margin: 0px auto;
 }
-#menu{
-    float: left;
-    width: 300px;
-    padding: 20px 30px;
-    margin-right: 30px;
-}
+
 #content{
     float: right;
     width: 510px;
@@ -15,9 +10,9 @@
 }
 
 table {
-    border-collapse:separate;
-    border-spacing:10px 10px;
-}​​​​​​​​​​​​​
+    border-collapse: separate;
+    border-spacing: 10px 10px;
+}
 
 tr.margin{
     margin-top: 5px;
@@ -34,4 +29,12 @@ div.right{
 
 h1.block{
     display: inline-block;
+}
+
+p.font-weight-bold{
+    font-weight: bold;
+}
+
+p.text-decoration-underline{
+    text-decoration: underline;
 }

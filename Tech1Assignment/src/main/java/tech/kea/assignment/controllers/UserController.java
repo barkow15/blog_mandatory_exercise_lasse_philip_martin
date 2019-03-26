@@ -279,6 +279,11 @@ public class UserController{
         return "redirect:/";
     }
 
+    @ModelAttribute ("isAdmin")
+    public boolean isAdmin(HttpSession session){
+        return sessionhelper.isAdmin(session);
+    }
+
     @ModelAttribute("Menu")
     public Menu getMenu(){
         Menu m = new Menu();

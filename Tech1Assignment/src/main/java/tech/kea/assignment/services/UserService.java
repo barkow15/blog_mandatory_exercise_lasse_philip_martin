@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class UserService implements UserServiceInterface {
 
-    UserRepoInterface UserRepo;
+    private UserRepoInterface UserRepo;
 
     public UserService() throws SQLException, ClassNotFoundException {
         this(new UserRepoMySQL());

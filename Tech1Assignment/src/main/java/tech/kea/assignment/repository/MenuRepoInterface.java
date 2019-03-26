@@ -11,7 +11,10 @@ import java.sql.SQLException;
 
 @Repository
 public interface MenuRepoInterface{
-    public int createMenuItem(String navn, int sortorder, int parentId, int blogId, String url)  throws SQLException;
-    public ResultSet getMenuItem(int MenuID) throws SQLException;
-    public ResultSet getMenuItems() throws SQLException;
+    public int createMenuItem(String name, int sortorder, int parentId, int blogId, String url)  throws SQLException;
+    public void deleteMenuItem(int userID) throws SQLException;
+    public void editMenuItem(int menuItemID, String name, int sortorder, int parentId, int blogId, String url) throws SQLException;
+
+    public ResultSet getMenuItem(int menuItemID) throws SQLException;
+    public ResultSet getMenuItems(int parentId) throws SQLException;
 }

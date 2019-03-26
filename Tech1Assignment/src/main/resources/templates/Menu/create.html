@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<th:block th:include="header.html"></th:block>
 
-</body>
-</html>
+<h1>Create Menu Item:</h1>
+
+<form method="post" action="/menu/create">
+    <table style="width: 300px">
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name" style="width: 100%"></td>
+        </tr>
+        <tr>
+            <td>sortorder:</td>
+            <td><input type="text" name="sortorder" style="width: 100%" value="100"></td>
+        </tr>
+        <tr>
+            <td>ParentId:</td>
+            <td>
+                <select style="width: 100%" name="parentId">
+                    <option value="0">Top level</option>
+                    <th:block th:each="menuitem : ${Menu.getTopMenu()}">
+                        <option th:utext="'&nbsp;' + ${menuitem.getId()} + ' ' + ${menuitem.getName()}" th:value="${menuitem.getId()}"></option>
+                    </th:block>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br/>
+            </td>
+        </tr>
+        <tr>
+            <td>blogId</td>
+            <td><input type="text" name="blogId" style="width: 100%"></td>
+        </tr>
+        <tr>
+            <td colspan="2">or</td>
+        </tr>
+        <tr>
+            <td>Url</td>
+            <td><input type="text" name="url" style="width: 100%"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><br/>
+                <input type="submit" value="Create Menu Item" style="width: 100%"></td>
+        </tr>
+    </table>
+</form>
+
+<th:block th:include="footer.html"></th:block>

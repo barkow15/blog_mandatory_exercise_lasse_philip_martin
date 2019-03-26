@@ -3,7 +3,7 @@
 <div th:if="${post.isHidden() == false}">
     <h2><span th:text="${post.getTitle()}"></span></h2>
 
-    <p th:text="${post.getContent()}"></p>
+    <p th:utext="${post.getContent()}"></p>
 </div>
 
 <p th:if="${post.isHidden() == true}">This post is hidden.</p>

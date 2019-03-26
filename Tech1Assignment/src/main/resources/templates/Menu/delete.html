@@ -1,0 +1,18 @@
+<th:block th:include="header.html"></th:block>
+
+<div>
+    <h1 class="block">Delete MenuItem</h1>
+    <div class="right"><a href="/users/" class="btn btn-primary">Cancel</a></div>
+</div>
+
+<p>You are about to delete the Menu Item<br/><br/></p><p th:text="${menuitem.getName()}" class="font-weight-bold"></p><p class="text-decoration-underline"><br/>and all sub menu items!<br/><br/></p>
+<p>Please confirm.</p>
+<div class="form-group">
+    <form method="post" action="/menu/delete">
+        <input type="hidden" name="menuitemID" th:value="${menuitem.getId()}">
+        <input type="submit" value="Slet" class="btn btn-info form-control">
+    </form>
+</div>
+
+
+<th:block th:include="footer.html"></th:block>

@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 public class MenuService implements MenuServiceInterface {
 
-    MenuRepoInterface MenuRepo;
+    private MenuRepoInterface MenuRepo;
 
     public MenuService() throws SQLException, ClassNotFoundException {
         this(new MenuRepoMySQL());
@@ -39,41 +39,55 @@ public class MenuService implements MenuServiceInterface {
     }
 
 
-    public void createMenuItem(String navn, int sortorder, int parentId, int blogId, String url) throws SQLException {
-        MenuRepo.createMenuItem(navn, sortorder, parentId, blogId, url);
+    public void createMenuItem(MenuItem menuitem) throws SQLException {
+        MenuRepo.createMenuItem(menuitem.getName(), menuitem.getSortorder(), menuitem.getParentId(), menuitem.getBlogId(), menuitem.getUrl());
     }
 
 
-    public void deleteMenuItem(int userID) throws SQLException {
-       // MenuRepo.deleteMenuItem(userID);
+    /**
+     * Delete a menu item and all sub items
+     */
+    public void deleteMenuItem(int menuItemID) throws SQLException {
+        deleteMenuItem(menuItemID, true);
+    }
+
+    public void deleteMenuItem(int menuItemID, boolean includesubitems) throws SQLException {
+       MenuRepo.deleteMenuItem(menuItemID);
+       if(includesubitems)
+       {
+           ResultSet rs = MenuRepo.getMenuItems(menuItemID);
+           while(rs.next())
+           {
+               deleteMenuItem(rs.getInt("id"), false);
+           }
+       }
     }
 
 
-    public void editUser(int userID, User user) throws SQLException {
-        //MenuRepo.editUser(userID, user.getUsername(), user.getPassword());
+    public void editMenuItem(MenuItem menuitem) throws SQLException {
+        MenuRepo.editMenuItem(menuitem.getId(), menuitem.getName(), menuitem.getSortorder(), menuitem.getParentId(), menuitem.getBlogId(), menuitem.getUrl());
     }
 
-
-
-/*
-    @Override
-    public User getUser(int userID) throws SQLException {
-        ResultSet rs = UserRepo.getUser(userID);
-        User user = null;
-        if (rs.next()) {
-            user = new User(rs.getInt("id"), rs.getString("name"));
+    public MenuItem getMenuItem(int menuItemID) throws SQLException{
+        ResultSet rs = MenuRepo.getMenuItem(menuItemID);
+        if(rs.next()){
+            return new MenuItem(rs.getInt("id"), rs.getString("name"), rs.getInt("sortorder"), rs.getInt("parentId"), rs.getInt("blogId"), rs.getString("url"));
         }
-        return user;
+        return null;
     }
-*/
 
-    public ArrayList<MenuItem> getMenuItems() throws SQLException {
+
+
+
+
+    public ArrayList<MenuItem> getMenuItems(int parentId) throws SQLException {
         int[]menuqueue = new int[10];
         int menuposition = 0;
 
 
         ArrayList<MenuItem> menuItemList = new ArrayList<MenuItem>();
-        ResultSet rs = MenuRepo.getMenuItems();
+        ResultSet rs = MenuRepo.getMenuItems(parentId);
+        int depth = 0;
         while(rs.next()) {
             while (menuposition > 0 && menuqueue[menuposition-1]!= rs.getInt("parentID")){
                 menuposition--;
@@ -81,25 +95,36 @@ public class MenuService implements MenuServiceInterface {
             menuqueue[menuposition]=rs.getInt("id");
             menuposition++;
             String Title = rs.getString("name");
-           switch (menuposition) {
+            switch (menuposition) {
                 case 1:
-                     Title = "<b>"+Title+"</b>";
-                        break;
-               case 2:
-                   Title =    "&nbsp"+ Title;
-                   break;
-               case 3:
-                   Title = "&nbsp&nbsp" + Title;
-                   break;
-           }
-           String u = rs.getString("url");
-           if (u==null) {
-              u = "/posts/post/"+rs.getInt("blogID");
+                    Title = "<b>"+Title+"</b>";
+                    depth = 1;
+                    break;
+                case 2:
+                    Title =    "&nbsp;"+ Title;
+                    depth = 2;
+                    break;
+                case 3:
+                    Title = "&nbsp;&nbsp;" + Title;
+                    depth = 3;
+                    break;
+                default:
+                    Title = "&nbsp;&nbsp;&nbsp;&nbsp;" + Title;
+                    depth = 4;
+                    break;
+            }
+            String u = rs.getString("url");
+            if (u==null) {
+                u = "/posts/post/"+rs.getInt("blogID");
 
             }
-            menuItemList.add(new MenuItem(rs.getInt("id"),Title,u ));
+            menuItemList.add(new MenuItem(rs.getInt("id"),Title,u, depth));
         }
         return(menuItemList);
+    }
+
+    public ArrayList<MenuItem> getMenuItems() throws SQLException {
+        return getMenuItems(0);
     }
 
 }
