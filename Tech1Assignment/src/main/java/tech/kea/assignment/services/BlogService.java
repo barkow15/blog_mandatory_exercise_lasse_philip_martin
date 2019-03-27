@@ -42,7 +42,7 @@ public class BlogService implements BlogServiceInterface{
         ved at køre createPost metoden med de udpakkede attributter som parametre
         og returner int
         */
-        return blogRepo.createPost(postContent, postTitle, postHidden);
+        return blogRepo.createPost(postTitle, postContent, postHidden);
     }
 
     @Override

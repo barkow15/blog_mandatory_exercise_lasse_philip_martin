@@ -27,8 +27,22 @@ div.right{
     float: right;
 }
 
-h1.block{
+h1{
+     display: inline-block;
+     padding: 0px;
+     margin: 0px;
+ }
+
+h2{
     display: inline-block;
+    padding: 0px;
+    margin: 0px;
+}
+
+h3{
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
 }
 
 p.font-weight-bold{
@@ -37,4 +51,78 @@ p.font-weight-bold{
 
 p.text-decoration-underline{
     text-decoration: underline;
+}
+
+form.flex-container {
+    display: flex;
+    background-color: DodgerBlue;
+    width: 310px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+form.flex-container > label {
+    margin-top: 4px;
+    width: 150px;
+}
+
+form.flex-container > input[type=text] {
+    margin-top: 4px;
+    width: 150px;
+}
+
+form.flex-container > input[type=password] {
+    margin-top: 4px;
+    width: 150px;
+}
+
+form.flex-container > input[type=submit] {
+    margin-top: 4px;
+    width: 100%;
+}
+
+span.numfield{
+    width: 60px;
+    display: inline-block;
+}
+
+span.textfield{
+    width: 100px;
+    display: inline-block;
+}
+
+span.pencilfield{
+    width: 25px;
+    display: inline-block;
+}
+
+span.removefield{
+    width: 25px;
+    display: inline-block;
+}
+
+a.right{
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+}
+
+div.block{
+    display: block;
+}
+
+hr{
+    border: 4px dashed black;
+}
+
+form.fw500{
+    width: 500px;
+}
+
+form.fw500 > input, input[type=text],input[type=password], input[type=submit], textarea {
+    width: 100%;
+}
+
+form.fw500 > input[type=checkbox],input[type=radiobutton] {
+    width: auto !important;
 }

@@ -150,14 +150,14 @@ public class UserController{
             String username = userservice.getUser(userID).getUsername();
             if(userservice.validateLoginCredentials(username, oldPassword))
             {
-                logger.log("User validation success new username: " + newUsername + " new password: " + newPassword);
+                logger.log("User validation success new username: " + newUsername, 1);
                 userservice.editUser(userID, new User(userID, newUsername, newPassword));
                 logger.log("editUser(@ModelAttribute User user, @ModelAttribute int userID): END");
                 return "redirect:/users/info/" + Integer.toString(userID);
             }
             else
                 {
-                    logger.log("User validation failed username: " + username + " password: " + oldPassword);
+                    logger.log("User validation failed username: " + username, 1);
                     logger.log("editUser(@ModelAttribute User user, @ModelAttribute int userID): END");
                     return "redirect:/users/edit/" + Integer.toString(userID);
                 }
@@ -234,7 +234,7 @@ public class UserController{
             }
             else
                 {
-                    logger.log("User failed to validate. Username: "  + user.getUsername() + " userpasword: " + user.getPassword(), 1);
+                    logger.log("User failed to validate. Username: "  + user.getUsername(), 1);
                     logger.log("validateUserCredentials(@ModelAttribute User user, Model model): END");
                     model.addAttribute("validationfailed", true);
                     return "/users/login";

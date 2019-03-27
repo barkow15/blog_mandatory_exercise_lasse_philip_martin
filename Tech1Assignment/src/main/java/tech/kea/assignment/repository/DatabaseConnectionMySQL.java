@@ -22,18 +22,13 @@ public class DatabaseConnectionMySQL {
 
    public void userMode() throws SQLException {
        // DB forbindelsesoplysninger
-       /*
+
        String username = "blogdat18a";
        String password = "Wk900N?9_pR7";
        String server   = "den1.mysql5.gear.host";
        String dbName   = "blogdat18a";
        String port     = "3306";
-       */
-       String username = "kea123";
-       String password = "kea12345";
-       String server   = "db4free.net";
-       String dbName   = "dat18a";
-       String port     = "3306";
+
        this.conn = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + dbName, username, password);
    }
 
@@ -42,10 +37,10 @@ public class DatabaseConnectionMySQL {
             conn.close();
         }
         // DB forbindelsesoplysninger
-        String username = "kea123";
-        String password = "kea12345";
-        String server   = "db4free.net";
-        String dbName   = "dat18a";
+        String username = "blogdat18a";
+        String password = "Wk900N?9_pR7";
+        String server   = "den1.mysql5.gear.host";
+        String dbName   = "blogdat18a";
         String port     = "3306";
         this.conn = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + dbName, username, password);
     }

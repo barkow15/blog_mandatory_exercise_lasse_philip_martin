@@ -160,6 +160,7 @@ public class BlogController{
             logger.log("editPost(@ModelAttribute int postID): END");
             return "redirect:/posts/";
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             logger.log("editPost(@ModelAttribute int postID): END");
             return "redirect:/posts/error";
         }

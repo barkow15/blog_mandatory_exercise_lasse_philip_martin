@@ -8,7 +8,6 @@ public class MenuItem {
     private String url = null;
     private int parentId = 0;
     private int blogId = 0;
-    private String htmlLink = null;
     private int sortorder = 100;
 
     public int getDepth() {
@@ -25,20 +24,20 @@ public class MenuItem {
 
     }
 
-    public MenuItem(int id, String name, String url, int depth){
-        this.setId(id);
-        this.setName(name);
-        this.setHTMLLink(url);
-        this.setDepth(depth);
-    }
+
 
     public MenuItem(int id, String name, int sortorder, int parentId, int blogId, String url)
+    {
+        this(id, name, sortorder, parentId, blogId, url, -1);
+    }
+
+    public MenuItem(int id, String name, int sortorder, int parentId, int blogId, String url, int depth)
     {
         this.setId(id);
         this.setName(name);
         this.setSortorder(sortorder);
         this.setParentId(parentId);
-        if(url == null)
+        if(url == null || url.equals(""))
         {
             this.setBlogId(blogId);
         }
@@ -46,6 +45,7 @@ public class MenuItem {
         {
             this.setUrl(url);
         }
+        this.depth = depth;
     }
 
     public int getParentId() {
@@ -86,9 +86,8 @@ public class MenuItem {
     /**
      * The html link is the HTML formated link, if this is set it is used, else the html link is build by the url or the blogId.
      */
-    public String getHTMLLink() {
-        if(this.htmlLink == null)
-        {
+    public String getHTMLLink()
+    {
             if(this.url == null)
             {
                 return "/posts/post/" + Integer.toString(this.blogId);
@@ -97,20 +96,8 @@ public class MenuItem {
             {
                 return this.url;
             }
-
-        }
-        else
-        {
-            return this.htmlLink;
-        }
     }
 
-    /**
-     * The html link is the HTML formated link, if this is set it is used, else the html link is build by the url or the blogId. To remove a preset HTML link, set it to null.
-     */
-    public void setHTMLLink(String htmlLink) {
-        this.htmlLink = htmlLink;
-    }
 
 
 
@@ -126,6 +113,27 @@ public class MenuItem {
         return name;
     }
 
+    public String getFormatedName(){
+        if(depth == 0){
+            return("<b>" + name + "-" + depth + "</b>");
+        }
+        else{
+            String fname = name;
+            for(int i = 0; i < depth; i++){
+                fname = "&nbsp;&nbsp;" + fname;
+            }
+            return(fname + "-" + depth);
+        }
+    }
+
+    public String getIndent(){
+        String indent = "";
+        for(int i = 0; i < depth; i++){
+            indent = "&nbsp;&nbsp;" + indent;
+        }
+        return(indent);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -138,8 +146,11 @@ public class MenuItem {
      * Only a blogId or a url can be representated at anypoint. Setting a url as the main link will remove any blogId set
      */
     public void setUrl(String url) {
-        this.blogId = 0;
-        this.url = url;
+        if(url != null && !url.equals(""))
+        {
+            this.blogId = 0;
+            this.url = url;
+        }
     }
 
 

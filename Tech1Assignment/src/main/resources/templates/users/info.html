@@ -1,9 +1,7 @@
 <th:block th:include="header.html"></th:block>
 
-<div>
-    <h1 class="block">User info</h1>
-    <div class="right"><a href="/users/" class="btn btn-primary">Tilbage</a></div>
-</div>
+<h1 class="block">User info</h1><br/>
+
 <p>ID: </p><p th:text="${user.getUserID()}"></p>
 <p>Username: </p><p th:text="${user.getUsername()}"></p>
 

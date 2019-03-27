@@ -61,17 +61,20 @@ public class MenuRepoMySQL implements MenuRepoInterface {
         return pstmt.executeQuery();
     }
 
+    //Gets a specific branch
     public ResultSet getMenuItems(int parentId) throws SQLException {
         // String sql = "SELECT * FROM menu ORDER BY `parentID`,`sortorder`";
-        String sql = "select blogID,url,id,\n" +
-                "                name,\n" +
-                "                parentid\n" +
-                "        from(select * from menu\n" +
-                "                order by sortorder) products_sorted,\n" +
-                "                (select @pv :='" + parentId + "')initialisation\n" +
-                "        where find_in_set (parentid,@pv)\n" +
+        /*
+        String sql = "select blogID,url,id, name, parentid, 1 as depth " +
+                "        from(select blogID,url,id, name, parentid, depth + 1 as depth from menu " +
+                "                order by sortorder) products_sorted, " +
+                "                (select @pv :='" + parentId + "')initialisation " +
+                "        where find_in_set (parentid,@pv) " +
                 "        and length ( @pv :=concat( @pv,',', id)) ORDER BY parentId, sortorder";
+        */
+        String sql = "SELECT * FROM menu WHERE `parentID` = ? ORDER BY sortorder";
         PreparedStatement pstmt = dbCon.getConnection().prepareStatement(sql);
+        pstmt.setInt(1,parentId);
         return pstmt.executeQuery();
 
     }

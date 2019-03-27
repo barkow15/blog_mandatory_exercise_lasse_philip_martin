@@ -2,50 +2,32 @@
 
 <h1>Edit Menu Item:</h1>
 
-<form method="post" action="/menu/edit" modelAttribute="MenuItem">
+<form method="post" action="/menu/edit" modelAttribute="MenuItem" class="fw500">
     <input type="hidden" name="id" th:value="${menuitem.getId()}">
-    <table style="width: 300px">
-        <tr>
-            <td>Name:</td>
-            <td><input type="text" name="name" style="width: 100%" th:value="${menuitem.getName()}"></td>
-        </tr>
-        <tr>
-            <td>sortorder:</td>
-            <td><input type="text" name="sortorder" style="width: 100%" value="100" th:value="${menuitem.getSortorder()}"></td>
-        </tr>
-        <tr>
-            <td>ParentId:</td>
-            <td>
-                <select style="width: 100%" name="parentId">
-                    <option value="0">Top level</option>
-                    <th:block th:each="cmenuitem : ${Menu.getTopMenu()}">
-                        <option th:text="'&nbsp;' + ${cmenuitem.getId()} + ' ' + ${cmenuitem.getName()}" th:value="${cmenuitem.getId()}" th:selected="${menuitem.getParentId()} eq ${cmenuitem.getId()}">
-                    </th:block>
-
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <br/>
-            </td>
-        </tr>
-        <tr>
-            <td>blogId</td>
-            <td><input type="text" name="blogId" style="width: 100%" th:value="${menuitem.getBlogId()}"></td>
-        </tr>
-        <tr>
-            <td colspan="2">or</td>
-        </tr>
-        <tr>
-            <td>Url</td>
-            <td><input type="text" name="url" style="width: 100%" th:value="${menuitem.getUrl()}"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><br/>
-                <input type="submit" value="Edit Menu Item" style="width: 100%"></td>
-        </tr>
-    </table>
+    <div class="block">
+        <span class="textfield">Name:</span><input type="text" name="name" style="width: 100%" th:value="${menuitem.getName()}">
+    </div>
+    <div class="block">
+        <span class="textfield">sortorder:</span><input type="text" name="sortorder" style="width: 100%" value="100" th:value="${menuitem.getSortorder()}">
+    </div>
+    <div class="block">
+        <span class="textfield">ParentId:</span>
+        <select style="width: 100%" name="parentId">
+        <option value="0">Top level (SortOrder)</option>
+        <th:block th:each="cmenuitem : ${Menu.getTopMenu()}">
+            <option th:utext="${cmenuitem.getIndent()} + ${cmenuitem.getName()} + '(' + ${cmenuitem.getSortorder()} + ')'" th:value="${cmenuitem.getId()}" th:selected="${menuitem.getParentId()} eq ${cmenuitem.getId()}">
+        </th:block>
+        </select>
+    </div>
+    <hr/>
+    <div class="block">
+        <span class="textfield">blogId:</span><input type="text" name="blogId" style="width: 100%" th:value="${menuitem.getBlogId()}">
+    </div>
+    <span>or</span>
+    <div class="block">
+        <span class="textfield">Url:</span><input type="text" name="url" style="width: 100%" th:value="${menuitem.getUrl()}">
+    </div>
+    <input type="submit" value="Edit Menu Item" style="width: 100%">
 </form>
 
 <th:block th:include="footer.html"></th:block>

@@ -1,27 +1,24 @@
 <th:block th:include="header.html"></th:block>
 
-<div>
+
     <h1 class="block">Menu item info</h1>
-    <div class="right"><a href="/menu/" class="btn btn-primary">Tilbage</a></div>
+    <a href="/menu/" class="btn btn-primary right">Tilbage</a><br/>
+
+<span class="numfield">ID</span>
+<span class="textfield">Name</span>
+<span class="numfield">sortorder</span>
+<span class="numfield">parentId</span>
+<span class="numfield">blogId</span>
+<span class="textfield">url</span>
+
+<div style="display: block;">
+    <span class="numfield" th:text="${menuitem.getId()}"></span>
+    <span class="textfield" th:text="${menuitem.getName()}"></span>
+    <span class="numfield" th:text="${menuitem.getSortorder()}"></span>
+    <span class="numfield" th:text="${menuitem.getParentId()}"></span>
+    <span class="numfield" th:text="${menuitem.getBlogId()}"></span>
+    <span class="textfield" th:text="${menuitem.getUrl()}"></span>
 </div>
-<table cellspacing="3">
-    <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>sortorder</th>
-        <th>parentId</th>
-        <th>blogId</th>
-        <th>url</th>
-    </thead>
-    <tbody>
-        <td th:text="${menuitem.getId()}"></td>
-        <td th:text="${menuitem.getName()}"></td>
-        <td th:text="${menuitem.getSortorder()}"></td>
-        <td th:text="${menuitem.getParentId()}"></td>
-        <td th:text="${menuitem.getBlogId()}"></td>
-        <td th:text="${menuitem.getUrl()}"></td>
-    </tbody>
-</table>
 
 
 <th:block th:include="footer.html"></th:block>

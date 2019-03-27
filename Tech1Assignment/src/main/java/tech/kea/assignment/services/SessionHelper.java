@@ -15,12 +15,10 @@ public class SessionHelper
     {
         try
         {
-            return true;
-            //return ((Boolean)session.getAttribute("isAdmin")).booleanValue();
+            return ((Boolean)session.getAttribute("isAdmin")).booleanValue();
         }catch(Exception e)
         {
-            return true;
-            //return false;
+            return false;
         }
     }
 

@@ -1,12 +1,12 @@
 <th:block th:include="header.html"></th:block>
 
-<div th:if="${post.isHidden() == false}">
+<div th:if="${post.isHidden()} == false">
     <h2><span th:text="${post.getTitle()}"></span></h2>
 
     <p th:utext="${post.getContent()}"></p>
 </div>
 
-<p th:if="${post.isHidden() == true}">This post is hidden.</p>
+<p th:if="${post.isHidden()}">This post is hidden.</p>
 
 <div th:if="${isAdmin}">
     <a class="btn btn-warning" role="button" th:href="'/posts/edit/' + ${post.getPostId()}">Edit post <i class="fas fa-edit"></i></i></a>

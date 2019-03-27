@@ -15,11 +15,10 @@ import java.util.List;
 
 
 /**
- * The user service implementation, is used to:
- *   CRUD users
- *   validate users
- *   Get a single user from ID
- *   Get all users
+ * The menu service implementation, is used to:
+ *   CRUD menu items
+ *   Get a single menu item from ID
+ *   Get all menu items
  */
 @Service
 public class MenuService implements MenuServiceInterface {
@@ -63,7 +62,6 @@ public class MenuService implements MenuServiceInterface {
        }
     }
 
-
     public void editMenuItem(MenuItem menuitem) throws SQLException {
         MenuRepo.editMenuItem(menuitem.getId(), menuitem.getName(), menuitem.getSortorder(), menuitem.getParentId(), menuitem.getBlogId(), menuitem.getUrl());
     }
@@ -76,55 +74,26 @@ public class MenuService implements MenuServiceInterface {
         return null;
     }
 
-
-
-
-
-    public ArrayList<MenuItem> getMenuItems(int parentId) throws SQLException {
-        int[]menuqueue = new int[10];
-        int menuposition = 0;
-
-
+    /**
+     * Build an ArrayList of all menu items that has the parent that is given. Each level is called individually
+     */
+    public ArrayList<MenuItem> getMenuItems(int parentId, int depth) throws SQLException {
         ArrayList<MenuItem> menuItemList = new ArrayList<MenuItem>();
         ResultSet rs = MenuRepo.getMenuItems(parentId);
-        int depth = 0;
         while(rs.next()) {
-            while (menuposition > 0 && menuqueue[menuposition-1]!= rs.getInt("parentID")){
-                menuposition--;
+            menuItemList.add(new MenuItem(rs.getInt("id"),rs.getString("name"),rs.getInt("sortorder"), rs.getInt("parentID"),rs.getInt("blogID"), rs.getString("url"), depth));
+            //Lets add all sub branches
+            ArrayList<MenuItem> children = getMenuItems(rs.getInt("id"), depth+1);
+            if(children.size() > 0)
+            {
+                menuItemList.addAll(children);
             }
-            menuqueue[menuposition]=rs.getInt("id");
-            menuposition++;
-            String Title = rs.getString("name");
-            switch (menuposition) {
-                case 1:
-                    Title = "<b>"+Title+"</b>";
-                    depth = 1;
-                    break;
-                case 2:
-                    Title =    "&nbsp;"+ Title;
-                    depth = 2;
-                    break;
-                case 3:
-                    Title = "&nbsp;&nbsp;" + Title;
-                    depth = 3;
-                    break;
-                default:
-                    Title = "&nbsp;&nbsp;&nbsp;&nbsp;" + Title;
-                    depth = 4;
-                    break;
-            }
-            String u = rs.getString("url");
-            if (u==null) {
-                u = "/posts/post/"+rs.getInt("blogID");
-
-            }
-            menuItemList.add(new MenuItem(rs.getInt("id"),Title,u, depth));
         }
         return(menuItemList);
     }
 
     public ArrayList<MenuItem> getMenuItems() throws SQLException {
-        return getMenuItems(0);
+        return getMenuItems(0, 0);
     }
 
 }

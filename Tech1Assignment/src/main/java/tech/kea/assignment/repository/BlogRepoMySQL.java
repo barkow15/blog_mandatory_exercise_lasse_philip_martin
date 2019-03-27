@@ -36,7 +36,7 @@ public class BlogRepoMySQL implements BlogRepoInterface {
     }
     public void   editPost(int id, String title, String content, boolean hidden) throws SQLException{
         // Vores SQL Statement
-        String SQL = "UPDATE blogdat18a.posts SET title = ?, content = ?, hidden = ? WHERE id = ?";
+        String SQL = "UPDATE posts SET title = ?, content = ?, hidden = ? WHERE id = ?";
         int hiddenInt;
         if(hidden) {
             hiddenInt = 1;
