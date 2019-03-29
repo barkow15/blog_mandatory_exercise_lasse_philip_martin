@@ -38,7 +38,7 @@ public class BlogController{
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("index(Model model): END");
-            return "/posts/error";
+            return "posts/error";
         }
     }
     // Viser den alle posts
@@ -47,11 +47,11 @@ public class BlogController{
         try {
             model.addAttribute("posts", blogservice.getAllPosts());
             logger.log("index(Model model): END");
-            return "/posts/posts";
+            return "posts/posts";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("index(Model model): END");
-            return "/posts/error";
+            return "posts/error";
         }
     }
 
@@ -62,11 +62,11 @@ public class BlogController{
         try {
             model.addAttribute("post", blogservice.getPost(postID));
             logger.log("index(Model model): END");
-            return "/posts/post";
+            return "posts/post";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("index(Model model): END");
-            return "/posts/error";
+            return "posts/error";
         }
     }
 
@@ -78,16 +78,16 @@ public class BlogController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/posts/error";
+            return "posts/error";
         }
         try {
             model.addAttribute("post", blogservice.getPost(postID));
             logger.log("delete(@PathVariable int postID): END");
-            return "/posts/delete";
+            return "posts/delete";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("delete(@PathVariable int postID): END");
-            return "/posts/error";
+            return "posts/error";
         }
     }
 
@@ -99,7 +99,7 @@ public class BlogController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         try {
             blogservice.deletePost(postID);
@@ -119,16 +119,16 @@ public class BlogController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/posts/error";
+            return "posts/error";
         }
         try {
             model.addAttribute("post", blogservice.getPost(postID));
             logger.log("edit(@PathVariable int postID): END");
-            return "/posts/edit";
+            return "posts/edit";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("edit(@PathVariable int postID): END");
-            return "/posts/error";
+            return "posts/error";
         }
     }
 
@@ -151,7 +151,7 @@ public class BlogController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/posts/error";
+            return "posts/error";
         }
         try {
             Post p = new Post(postID, title, content, hiddenStatus);
@@ -173,11 +173,11 @@ public class BlogController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/posts/error";
+            return "posts/error";
         }
 
         logger.log("createPost: END");
-        return "/posts/create";
+        return "posts/create";
 
     }
     // Håndterer logikken for at oprette en post og interagerer med vores repository lag
@@ -187,7 +187,7 @@ public class BlogController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/posts/error";
+            return "posts/error";
         }
         try {
             blogservice.createPost(post);
@@ -210,6 +210,11 @@ public class BlogController{
     @ModelAttribute ("isAdmin")
     public boolean isAdmin(HttpSession session){
         return sessionhelper.isAdmin(session);
+    }
+
+    @ModelAttribute ("SessionLog")
+    public String logging(){
+        return logger.getSessionLog();
     }
 
     @ModelAttribute("Menu")

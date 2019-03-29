@@ -40,16 +40,16 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         try {
             model.addAttribute("users", userservice.getUsers());
             logger.log("index(Model model): END");
-            return "/users/index";
+            return "users/index";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("index(Model model): END");
-            return "/users/error";
+            return "users/error";
         }
     }
 
@@ -60,17 +60,17 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         try
         {
             model.addAttribute("users", userservice.getUsers());
             logger.log("index2(Model model): END");
-            return "/users/index";
+            return "users/index";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("index2(Model model): END");
-            return "/users/error";
+            return "users/error";
         }
     }
 
@@ -81,9 +81,9 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
-        return "/users/create";
+        return "users/create";
     }
 
     // Getpost <-- start -->
@@ -94,7 +94,7 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         try {
             userservice.createUser(user);
@@ -117,16 +117,16 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         try {
             model.addAttribute("user", userservice.getUser(userID));
             logger.log("edit(@PathVariable int userID, Model model) : END");
-            return "/users/edit";
+            return "users/edit";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("edit(@PathVariable int userID, Model model) : END");
-            return "/users/error";
+            return "users/error";
         }
     }
 
@@ -144,7 +144,7 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         try {
             String username = userservice.getUser(userID).getUsername();
@@ -178,16 +178,16 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         try {
             model.addAttribute("user", userservice.getUser(userID));
             logger.log("delete(@PathVariable int userID): END");
-            return "/users/delete";
+            return "users/delete";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("delete(@PathVariable int userID): END");
-            return "/users/error";
+            return "users/error";
         }
     }
 
@@ -199,7 +199,7 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         try {
             userservice.deleteUser(userID);
@@ -214,12 +214,12 @@ public class UserController{
     // Viser siden hvor man kan logge ind når man tilgår /users/login/
     @GetMapping("/users/login")
     public String login() {
-        return "/users/login";
+        return "users/login";
     }
     // Getmapping <-- /slut -->
 
     // Håndterer logikken for at validere en brugers loginoplsyninger og interagerer med vores repository lag
-    @PostMapping("/users/login")
+    @PostMapping("users/login")
     public String validateUserCredentials(@ModelAttribute User user, Model model, HttpSession session)
     {
         logger.log("validateUserCredentials(@ModelAttribute User user, Model model): START");
@@ -237,7 +237,7 @@ public class UserController{
                     logger.log("User failed to validate. Username: "  + user.getUsername(), 1);
                     logger.log("validateUserCredentials(@ModelAttribute User user, Model model): END");
                     model.addAttribute("validationfailed", true);
-                    return "/users/login";
+                    return "users/login";
                 }
         } catch (SQLException e) {
             logger.log("validateUserCredentials and error occured " + e.getMessage(), 1);
@@ -255,13 +255,13 @@ public class UserController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/users/error";
+            return "users/error";
         }
         logger.log("showUser(@RequestParam(value=\"userID\", required=true) int userID, Model model): START");
         try {
             model.addAttribute("user", userservice.getUser(userID));
             logger.log("showUser(@RequestParam(value=\"userID\", required=true) int userID, Model model): END");
-            return "/users/info";
+            return "users/info";
         } catch (SQLException e) {
             logger.log("Error: " + e.getMessage(), 1);
             logger.log("showUser(@RequestParam(value=\"userID\", required=true) int userID, Model model): END");
@@ -269,7 +269,7 @@ public class UserController{
         }
     }
 
-    @GetMapping("/users/logout")
+    @GetMapping("users/logout")
     public String logout(HttpSession session)
     {
         logger.log("logout(HttpSession session): START");
@@ -277,6 +277,11 @@ public class UserController{
         session.removeAttribute("isAdmin");
         logger.log("logout(HttpSession session): END");
         return "redirect:/";
+    }
+
+    @ModelAttribute ("SessionLog")
+    public String logging(){
+        return logger.getSessionLog();
     }
 
     @ModelAttribute ("isAdmin")

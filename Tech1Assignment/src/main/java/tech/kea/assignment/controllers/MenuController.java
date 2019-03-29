@@ -49,16 +49,16 @@ public class MenuController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/menu/error";
+            return "menu/error";
         }
         try {
             model.addAttribute("menuitem", menuservice.getMenuItem(menuItemID));
             logger.log("info(@PathVariable int menuItemID, Model model, HttpSession session) : END");
-            return "/menu/info";
+            return "menu/info";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("info(@PathVariable int menuItemID, Model model, HttpSession session) : END");
-            return "/menu/error";
+            return "menu/error";
         }
     }
 
@@ -67,9 +67,9 @@ public class MenuController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/menu/error";
+            return "menu/error";
         }
-        return "/menu/create";
+        return "menu/create";
     }
 
     @PostMapping("/menu/create")
@@ -82,7 +82,7 @@ public class MenuController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/menu/error";
+            return "menu/error";
         }
         try {
             menuservice.createMenuItem(new MenuItem(0, menuitemID, sortorder, parentId, blogId, url));
@@ -105,16 +105,16 @@ public class MenuController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/menu/error";
+            return "menu/error";
         }
         try {
             model.addAttribute("menuitem", menuservice.getMenuItem(menuitemID));
             logger.log("edit(@PathVariable int menuitemID, Model model) : END");
-            return "/menu/edit";
+            return "menu/edit";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("edit(@PathVariable int menuitemID, Model model) : END");
-            return "/menu/error";
+            return "menu/error";
         }
     }
 
@@ -127,7 +127,7 @@ public class MenuController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/menu/error";
+            return "menu/error";
         }
         try {
             menuservice.editMenuItem(menuitem);
@@ -136,7 +136,7 @@ public class MenuController{
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("editUser(@ModelAttribute MenuItem menuitem, @ModelAttribute int userID): End");
-            return "/menu/error";
+            return "menu/error";
         }
 
     }
@@ -148,16 +148,16 @@ public class MenuController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/menu/error";
+            return "menu/error";
         }
         try {
             model.addAttribute("menuitem", menuservice.getMenuItem(menuitemID));
             logger.log("delete(@PathVariable int menuitemID): END");
-            return "/menu/delete";
+            return "menu/delete";
         } catch (SQLException e) {
             logger.log("An error occurred " + e.getMessage(), 1);
             logger.log("delete(@PathVariable int menuitemID): END");
-            return "/menu/error";
+            return "menu/error";
         }
     }
 
@@ -168,7 +168,7 @@ public class MenuController{
         if(!sessionhelper.isAdmin(session))
         {
             logger.log("User access denied");
-            return "/menu/error";
+            return "menu/error";
         }
         try {
             menuservice.deleteMenuItem(menuitemID);
@@ -178,6 +178,11 @@ public class MenuController{
             logger.log("deleteMenuitem(@ModelAttribute int userID): END");
             return "redirect:/menu/error";
         }
+    }
+
+    @ModelAttribute ("SessionLog")
+    public String logging(){
+        return logger.getSessionLog();
     }
 
     @ModelAttribute ("isAdmin")

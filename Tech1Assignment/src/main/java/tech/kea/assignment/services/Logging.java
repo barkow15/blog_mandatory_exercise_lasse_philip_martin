@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class Logging {
+    String history = "";
     String callerclass = "";
 
     public Logging()
@@ -34,5 +35,10 @@ public class Logging {
         }
         s = s + str;
         System.out.println(callerclass + s);
+        history = history + "\n" + callerclass + s;
+    }
+
+    public String getSessionLog(){
+        return(history);
     }
 }
